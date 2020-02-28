@@ -7,7 +7,12 @@
 	<version>0.0.7-SNAPSHOT</version>
 	<name>my-app</name>
 	<url>http://maven.apache.org</url>
-
+<properties>
+  <sonar.projectKey>smkorde_my-app</sonar.projectKey>
+  <sonar.organization>smkorde</sonar.organization>
+  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+  <sonar.login>1b2dff19b202aba6ce7e13bdddab98ad285f9fc9</sonar.login>
+</properties>
 	<dependencies>
 		<dependency>
 		    <groupId>org.apache.poi</groupId>
