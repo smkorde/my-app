@@ -1,0 +1,47 @@
+node{
+   
+   stage('SCM Checkout'){
+    git url: 'https://github.com/smkorde/my-app.git'
+   }
+   
+   stage('Mvn Package'){
+   bat 'mvn clean package'
+   }
+   
+   stage('unit test')
+		{
+		bat 'mvn test'
+		
+		}
+	 stage('Sonar Quality Check')
+		{
+		//bat 'mvn sonar:sonar'
+		
+		}	
+  stage('Build Docker Image'){
+     bat 'docker build -t skorde/my-app:2.0.0 .'
+   }
+   
+   stage('Push Docker Image'){
+     bat 'docker login -u ### -p ###'
+     bat 'docker push skorde/my-app:2.0.0'
+   }
+   
+   stage('Stop and Remove Previous Container'){
+	//try{
+    // bat 'docker container stop $(docker container ls -aq)'
+     //bat 'docker container rm $(docker container ls -aq)'
+	//}catch(error){
+		//  do nothing if there is an exception
+	//}
+ }
+   stage('Run Container on Dev Server'){
+       bat 'docker run -p 8081:8080 -d --name my-app skorde/my-app:2.0.0'
+     
+   }
+}
+
+		//def dockerRm = 'docker rm -f myweb'
+		//sshagent(['docker-dev']) {
+		//	sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.17.196 ${dockerRm}"
+		//}
